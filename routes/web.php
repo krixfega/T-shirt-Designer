@@ -14,9 +14,8 @@ use App\Http\Controllers\TShirtController;
 |
 */
 Auth::routes();
+
 Route::get('/customization', [TShirtController::class, 'showCustomizationPage']);
 Route::post('/customize', [TShirtController::class, 'customizeTShirt']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/customization/details/{id}', [TShirtController::class, 'showCustomizationDetails'])
+    ->name('customization.details');

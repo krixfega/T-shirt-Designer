@@ -1,5 +1,4 @@
-
-@extends('layouts.app') <!-- Assuming you have a layout file, adjust as needed -->
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -23,13 +22,41 @@
                                 <input type="text" name="design" id="design" class="form-control" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="image">Upload Image:</label>
+                            <div class="form-group my-3 ">
+                                <label for="image">Upload Image:</label><br>
                                 <input type="file" name="image" id="image" class="form-control-file" required accept="image/*">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Customize T-Shirt</button>
                         </form>
+
+                        <!-- Display the uploaded image and generated code -->
+                        @if(isset($imagePath))
+                            <div class="mt-3">
+                                <h5>Customized T-Shirt:</h5>
+                                <img src="{{ asset('storage/' . $imagePath) }}" alt="Customized T-Shirt Image" class="img-fluid">
+                            </div>
+                            <div class="mt-3">
+                                <h5>Generated Code:</h5>
+                                <pre>{{ $generatedCode }}</pre>
+                            </div>
+                        @endif
+
+                        <!-- Display a list of previous customizations -->
+                    @if(isset($previousCustomizations))
+                        <div class="mt-5">
+                            <h3>Previous Customizations:</h3>
+                            <ul>
+                                @foreach($previousCustomizations as $customization)
+                                    <li>
+                                        <a href="{{ route('customization.details', $customization->id) }}">
+                                            {{ $customization->design }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
